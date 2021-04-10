@@ -1,0 +1,19 @@
+{
+  "name": "logisticbot",
+  "version": "0.0.1",
+  "description": "A framework for lazy controlled state machines",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "keywords": [
+    "lazy",
+    "state",
+    "machines"
+  ],
+  "author": "Liviu Alexandru Bobocu",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.2.4"
+  }
+}
