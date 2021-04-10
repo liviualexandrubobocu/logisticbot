@@ -21,7 +21,6 @@ function push(x: any) {
     } else {
         this.top++;
         this.a[this.top] = x;
-        setStack(this);
         console.log(`pushed on the stack ${x}`);
         return true;
     }
