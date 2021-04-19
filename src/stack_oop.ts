@@ -48,8 +48,9 @@ class Stack<T> implements IStack<T> {
 }
 
 type AltString = string | null;
+type AltStringRangeError = string | RangeError | Stack<AltString> | null;
 
-const log = (...thing: any[]) => {
+const log = (...thing: AltStringRangeError[]) => {
     if(thing[0] instanceof RangeError) {
         throw thing;
     } else {
