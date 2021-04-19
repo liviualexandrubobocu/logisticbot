@@ -18,7 +18,7 @@ class Stack<T> implements IStack<T> {
         this.arr = new Array(max);
     }
 
-    push(x: T): boolean | Error {
+    push(x: T): boolean | RangeError {
         if(this.top > (this.max - 1)){
             return new RangeError(STACK_MESSAGES.OVERFLOW);
         } 
@@ -26,7 +26,7 @@ class Stack<T> implements IStack<T> {
         return true;
     }
 
-    pop(): T | Error {
+    pop(): T | RangeError {
         if(this.top < 0) {
             return new RangeError(STACK_MESSAGES.OVERFLOW);
         }
