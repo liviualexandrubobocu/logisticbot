@@ -71,4 +71,6 @@ function main() {
     log('s with throw after pop ', s);
 }
 
-main();
+// main();
+
+export default Stack;
