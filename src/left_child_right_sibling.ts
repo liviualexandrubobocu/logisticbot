@@ -1,12 +1,6 @@
-class LNode<T> {
-    next: LNode<T>;
-    child: LNode<T>;
+import deepEquality from "./deep_equality";
+import LNode from './tree_node';
 
-    constructor(public data: T){
-        this.child = null;
-        this.next = null;
-    }
-}
 
 const addSibling = <T>(node: LNode<T>, data: T): LNode<T> | null => {
     if(!node) return null;
@@ -44,13 +38,16 @@ const recursiveTraverse = <T>(root: LNode<T>): void => {
     }
 }
 
-const nonRecursiveTraverse = <T>(root: LNode<T>): void => {
+const nonRecursiveTraverse = <T>(root: LNode<T>, node: LNode<T>): LNode<T> | null => {
     let current: LNode<T> = root;
     let done = false;
     let lastVisitedParent = null;
+    let searchedNode = null;
 
     while (!done) {
-        console.log(current.data);
+        if(deepEquality(current, node)) { 
+            searchedNode = current; 
+        }
 
         if (current.child) {
             lastVisitedParent = current;
@@ -64,6 +61,29 @@ const nonRecursiveTraverse = <T>(root: LNode<T>): void => {
         }
     }
 
+    return searchedNode;
+
+}
+
+const nonRecursiveTraverseWithCallback = <T>(root: LNode<T>, callback: Function): void => {
+    let current: LNode<T> = root;
+    let done = false;
+    let lastVisitedParent = null;
+
+    while (!done) {
+        callback(current);
+        
+        if (current.child) {
+            lastVisitedParent = current;
+            current = current.child;
+        } else if (current.next) {
+            current = current.next;
+        } else if (lastVisitedParent.next !== null) {
+            current = lastVisitedParent.next;
+        } else {
+            done = true;
+        }
+    }
 }
 
 const main = () => {
@@ -78,9 +98,16 @@ const main = () => {
     let n8 = addChild(n5,2); 
 
     recursiveTraverse(root);
-    nonRecursiveTraverse(root);
+    nonRecursiveTraverse(root, n5);
 }
 
 main();
+
+export default {
+    addSibling,
+    addChild,
+    recursiveTraverse,
+    nonRecursiveTraverse
+}
 
 // 0 1 1 1 2 1 2 2 2
