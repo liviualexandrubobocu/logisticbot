@@ -27,12 +27,33 @@ var Tree = /** @class */ (function () {
                 stack.pop();
                 // Error has been cleared, we can continue with current typecasted as TNode
                 current = current;
-                console.log('current data', current.data);
+                console.log(current.data);
                 current = current.right;
             }
             else {
                 done = true;
             }
+        }
+    };
+    /**
+     * Post Order implementation using 2 stacks
+     * @param root
+     */
+    Tree.prototype.postOrder = function (root) {
+        var stack1 = new stack_oop_1["default"](10);
+        var stack2 = new stack_oop_1["default"](10);
+        stack1.push(root);
+        while (!stack1.empty()) {
+            var current = stack1.pop();
+            stack2.push(current);
+            if (current.left)
+                stack1.push(current.left);
+            if (current.right)
+                stack1.push(current.right);
+        }
+        while (!stack2.empty()) {
+            var current = stack2.pop();
+            console.log(current.data);
         }
     };
     return Tree;
@@ -43,7 +64,11 @@ function main() {
     root.right = new TNode(3);
     root.left.left = new TNode(4);
     root.left.right = new TNode(5);
+    root.right.left = new TNode(6);
+    root.right.left.left = new TNode(7);
+    root.right.left.right = new TNode(8);
     var tree = new Tree();
-    tree.inOrder(root);
+    tree.postOrder(root);
+    // 4 5 2 7 8 6 3 1
 }
 main();

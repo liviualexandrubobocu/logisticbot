@@ -74,7 +74,32 @@ class Tree<T> implements ITree<T> {
             }
         }
 
+    }
 
+    /**
+     * Post Order implementation using 2 stacks
+     * @param root 
+     */
+    postOrder(root: TNode<T>) {
+        let stack1: Stack<TNode<T>> = new Stack<TNode<T>>(10);
+        let stack2: Stack<TNode<T>> = new Stack<TNode<T>>(10);
+        stack1.push(root);
+        
+        while(!stack1.empty()){
+            const current = <TNode<T>>stack1.pop();
+            stack2.push(current);
+            
+            if(current.left)
+                stack1.push(current.left);
+            
+            if(current.right)
+                stack1.push(current.right);
+        }
+
+        while(!stack2.empty()){
+            const current = <TNode<T>>stack2.pop();
+            console.log(current.data);
+        }
     }
 }
 
@@ -84,8 +109,13 @@ function main() {
     root.right = new TNode<number>(3);
     root.left.left = new TNode<number>(4);
     root.left.right = new TNode<number>(5);
+    root.right.left = new TNode<number>(6);
+    root.right.left.left = new TNode<number>(7);
+    root.right.left.right = new TNode<number>(8);
     const tree = new Tree<number>();
-    tree.inOrder(root);
+    tree.postOrder(root);
+
+    // 4 5 2 7 8 6 3 1
 }
 
 main();

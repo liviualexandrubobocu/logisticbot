@@ -186,8 +186,6 @@ class TreeRenderer {
             let node = nodes.shift();
             nodes = nodes.concat(node.children);
 
-            let parent = node.parent;
-
             let x1 = node.x * levelWidth;
             let y1 = node.final * levelHeight;
 
